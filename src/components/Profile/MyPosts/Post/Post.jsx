@@ -7,7 +7,7 @@ const Post = (props) => {
 			<img src="https://www.peta.org/wp-content/uploads/2017/09/Naruto-Selfie-Thumb.jpg" />
 			{props.message}
 			<div>
-				<span>like</span>
+				<span>likes: {props.likesCount}</span>
 			</div>
 		</div>
 	);

@@ -1,16 +1,12 @@
 import React from "react";
 import styles from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPost";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = () => {
 	return (
 		<div>
-			<div>
-				<img src='https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg' />
-			</div>
-			<div>
-				ava + description
-			</div>
+			<ProfileInfo />
 			<MyPosts />
 		</div>
 	);
