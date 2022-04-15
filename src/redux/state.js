@@ -1,27 +1,59 @@
-let state = {
-	profilePage: {
-		posts: [
-			{ id: 1, message: 'message1', likesCount: 12 },
-			{ id: 2, message: 'message2', likesCount: 0 },
-			{ id: 3, message: 'message3', likesCount: 7 },
-			{ id: 4, message: 'message4', likesCount: 2 }
-		],
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
+
+let store = {
+	_state: {
+		profilePage: {
+			posts: [
+				{ id: 1, message: "Hi, how are you?", likesCount: 12 },
+				{ id: 2, message: "It's my first post", likesCount: 11 },
+				{ id: 3, message: "Blabla", likesCount: 11 },
+				{ id: 4, message: "Dada", likesCount: 11 }
+			],
+			newPostText: "it-kamasutra.com"
+		},
+		dialogsPage: {
+			dialogs: [
+				{ id: 1, name: "Dimych" },
+				{ id: 2, name: "Andrew" },
+				{ id: 3, name: "Sveta" },
+				{ id: 4, name: "Sasha" },
+				{ id: 5, name: "Viktor" },
+				{ id: 6, name: "Valera" }
+			],
+			newMessageBody: "QQ",
+			messages: [
+				{ id: 1, message: "Hi" },
+				{ id: 2, message: "How is your it-kamasutra?" },
+				{ id: 3, message: "Yo" },
+				{ id: 4, message: "Yo" },
+				{ id: 5, message: "Yo" }
+			],
+		},
+		sidebar: {}
 	},
-	dialogsPage: {
-		dialogs: [
-			{ id: 1, name: 'Mark' },
-			{ id: 2, name: 'Mark1' },
-			{ id: 3, name: 'Mark2' },
-			{ id: 4, name: 'Mark3 ' }
-		],
-		messages: [
-			{ id: 1, message: 'Hi!' },
-			{ id: 2, message: 'hi2' },
-			{ id: 3, message: 'hi2' },
-			{ id: 4, message: 'hi5 ' }
-		]
+
+	_callSubscriber() {
+		console.log("State changed");
+	},
+
+	getState() {
+		return this._state;
+	},
+
+	subscribe(observer) {
+		this._callSubscriber = observer; // observer
+	},
+
+	dispatch(action) {
+		this._state.profilePage = profileReducer(this._state.profilePage, action);
+		this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+		this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+		this._callSubscriber(this._state);
 	}
-}
+};
 
-export default state;
-
+export default store;
+window.store = store;
