@@ -11,7 +11,7 @@ const Navbar = (props) => {
 				</NavLink>
 			</div>
 			<div className={styles.item}>
-				<NavLink to='/messages'>
+				<NavLink to='/dialogs'>
 					Messages
 				</NavLink>
 			</div>
@@ -23,6 +23,11 @@ const Navbar = (props) => {
 			<div className={styles.item}>
 				<NavLink to="/music">
 					Music
+				</NavLink>
+			</div>
+			<div className={styles.item}>
+				<NavLink to="/users">
+					Users
 				</NavLink>
 			</div>
 			<div className={styles.item}>
