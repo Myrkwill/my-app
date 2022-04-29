@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ProfileInfo.module.css";
 import userPhoto from "../../../accets/images/user.png";
+import { ProfileStatus } from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -9,12 +10,13 @@ const ProfileInfo = (props) => {
   let profileImage = props.profile.photos.small || userPhoto;
   return (
     <div>
-      <div>
+      {/* <div>
         <img src="https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg" />
-      </div>
+      </div> */}
       <div className={styles.descriptionBlock}>
         <img src={profileImage} className={styles.userPhoto} />
-        ava + description
+		<ProfileStatus status="Hello my freind!"/>
+        {/* ava + description */}
       </div>
     </div>
   );
