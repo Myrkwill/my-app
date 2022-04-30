@@ -17,9 +17,9 @@ const withRouter = (WrappedComponent) => (props) => {
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    let userId = this.props.params.userId || 2;
+    let userId = this.props.params.userId || 23615;
     this.props.getUserProfile(userId);
-	this.props.getStatusProfile(userId);
+    this.props.getStatusProfile(userId);
   }
 
   render() {

@@ -7,6 +7,14 @@ export class ProfileStatus extends Component {
     status: this.props.status,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status,
+      });
+    }
+  }
+
   activateEditMode = () => {
     this.setState({
       editMode: true,
@@ -17,14 +25,14 @@ export class ProfileStatus extends Component {
     this.setState({
       editMode: false,
     });
-	this.props.updateStatusProfile(this.state.status);
+    this.props.updateStatusProfile(this.state.status);
   };
 
   onStatusChange = (e) => {
-	this.setState({
-		status: e.currentTarget.value,
-	});
-  }
+    this.setState({
+      status: e.currentTarget.value,
+    });
+  };
 
   render() {
     return (
