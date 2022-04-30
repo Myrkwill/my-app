@@ -10,7 +10,7 @@ const Profile = (props) => {
         status={props.status}
         updateStatusProfile={props.updateStatusProfile}
       />
-      <MyPostsContainer store={props.store} />
+      <MyPostsContainer />
     </div>
   );
 }
