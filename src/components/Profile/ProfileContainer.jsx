@@ -17,10 +17,8 @@ const withRouter = (WrappedComponent) => (props) => {
 
 class ProfileContainer extends Component {
   componentDidMount() {
-	  debugger;
     let userId = this.props.params.userId;
 	if (!userId) {
-		debugger;
 		userId = this.props.authorizedUserId;
 		if (!userId) {
       		this.props.navigate({ pathname: "/login" }, { replace: true }); 
