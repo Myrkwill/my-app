@@ -1,25 +1,28 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
-const validateLoginForm = (values) => {
-  const errors = {};
-  if (!values.email) {
-    errors.email = "Required 1";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-    errors.email = "Invalid email address";
-  }
-  return errors;
-};
+import { connect } from "react-redux";
+import { login } from "../../redux/authReducer";
+import { Navigate } from "react-router-dom";
 
 const validationSchemaLoginForm = Yup.object().shape({
+  email: Yup.string().email("Invalid email address").required("Required"),
   password: Yup.string()
     .min(2, "Must be longer than 2 characters")
-    .max(5, "Must be shorter than 5 characters")
-    .required("Required 2"),
+    .max(50, "Must be shorter than 5 characters")
+    .required("Required"),
 });
 
-const Login = () => {
+const Login = (props) => {
+  if (props.isAuth) {
+    return <Navigate to="/profile/" />;
+  }
+
+  const onSubmit = (values, actions) => {
+    props.login(values.email, values.password, values.rememberMe, actions.setStatus);
+	actions.setSubmitting(false);
+  };
+
   return (
     <div>
       <h2> Login </h2>
@@ -30,16 +33,13 @@ const Login = () => {
           password: "",
           rememberMe: false,
         }}
-        validate={validateLoginForm}
         validationSchema={validationSchemaLoginForm}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={onSubmit}
       >
-        {() => (
+        {({ status }) => (
           <Form>
             <div>
-              <Field name={"email"} type={"text"} placeholder={"e-mail"} />
+              <Field name={"email"} type={"text"} placeholder={"Email"} />
             </div>
             <ErrorMessage name="email" component="div" />
 
@@ -50,7 +50,9 @@ const Login = () => {
                 placeholder={"password"}
               />
             </div>
-            <ErrorMessage name="password" component="div" />
+            <ErrorMessage name="password">
+              {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+            </ErrorMessage>
 
             <div>
               <Field type={"checkbox"} name={"rememberMe"} id="rememberMe" />
@@ -58,6 +60,7 @@ const Login = () => {
             </div>
 
             <button type={"submit"}>Login</button>
+            <div>{status}</div>
           </Form>
         )}
       </Formik>
@@ -65,4 +68,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, { login })(Login);
