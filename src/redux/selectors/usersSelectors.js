@@ -1,7 +1,13 @@
+import { createSelector } from "reselect";
+
 // Получить пользователей
 export const getUsers = (state) => {
   return state.usersPage.users;
 };
+
+export const getFollowedUsersSelector = createSelector(getUsers, (users) => {
+	return users.filter((u) => u.followed === true );
+})
 
 // Получить размер страницы
 export const getPageSize = (state) => {
