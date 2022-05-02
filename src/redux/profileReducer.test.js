@@ -1,6 +1,6 @@
 import React from "react";
 import profileReducer, {
-  addPostActionCreator,
+  addPost,
   deletePost,
 } from "./profileReducer";
 
@@ -15,7 +15,7 @@ let state = {
 
 test("length of posts should be incremented", () => {
   // Arrange && Act
-  let action = addPostActionCreator("it-kamasutra");
+  let action = addPost("it-kamasutra");
   let newState = profileReducer(state, action);
 
   // Assert
@@ -24,7 +24,7 @@ test("length of posts should be incremented", () => {
 
 it("message of new post should be correct", () => {
   // Arrange && Act
-  let action = addPostActionCreator("it-kamasutra.com");
+  let action = addPost("it-kamasutra.com");
   let newState = profileReducer(state, action);
 
   // Assert
