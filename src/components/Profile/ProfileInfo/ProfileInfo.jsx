@@ -1,25 +1,21 @@
 import React from "react";
 import styles from "./ProfileInfo.module.css";
-import userPhoto from "../../../accets/images/user.png";
+import userPhoto from "../../../assets/images/user.png";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({profile, status, updateStatusProfile}) => {
+  if (!profile) {
     return null;
   }
-  let profileImage = props.profile.photos.small || userPhoto;
+  let profileImage = profile.photos.small || userPhoto;
   return (
     <div>
-      {/* <div>
-        <img src="https://i1.wp.com/static.web-backgrounds.net/uploads/2012/08/City_Landscape_Background.jpg" />
-      </div> */}
       <div className={styles.descriptionBlock}>
         <img src={profileImage} className={styles.userPhoto} />
         <ProfileStatusWithHooks
-          status={props.status}
-          updateStatusProfile={props.updateStatusProfile}
+          status={status}
+          updateStatusProfile={updateStatusProfile}
         />
-        {/* ava + description */}
       </div>
     </div>
   );

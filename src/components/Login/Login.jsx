@@ -13,13 +13,13 @@ const validationSchemaLoginForm = Yup.object().shape({
     .required("Required"),
 });
 
-const Login = (props) => {
-  if (props.isAuth) {
+const Login = ({ isAuth, login }) => {
+  if (isAuth) {
     return <Navigate to="/profile/" />;
   }
 
   const onSubmit = (values, actions) => {
-    props.login(values.email, values.password, values.rememberMe, actions.setStatus);
+    login(values.email, values.password, values.rememberMe, actions.setStatus);
 	actions.setSubmitting(false);
   };
 
