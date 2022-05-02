@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./ProfileInfo.module.css";
 
-export class ProfileStatus extends Component {
+class ProfileStatus extends Component {
   state = {
     editMode: false,
     status: this.props.status,
@@ -58,3 +58,5 @@ export class ProfileStatus extends Component {
     );
   }
 }
+
+export default ProfileStatus;
