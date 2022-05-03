@@ -26,9 +26,9 @@ componentDidMount() {
 }
 
   render() {
-	//   if(!this.props.initialized) {
-	// 	  return <Preloader />
-	//   }
+	  if(!this.props.initialized) {
+		  return <Preloader />
+	  }
     return (
       <div className="app-wrapper">
         <HeaderContainer />
@@ -60,7 +60,7 @@ let AppContainer = connect(mapStateToProps, { initializeApp })(App);
 
 
 const SamuraiJSApp = (props) => {
-  return <BrowserRouter basename={process.env.PUBLIC_URL}>
+  return <BrowserRouter >
     <Provider store={store}>
       <AppContainer />
     </Provider>
