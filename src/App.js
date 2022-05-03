@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 import store from "./redux/reduxStore";
 import "./App.css";
@@ -34,18 +34,25 @@ componentDidMount() {
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
-          <React.Suspense fallback={<Preloader />}>
-            <Routes>
-              <Route path="/profile" element={<ProfileContainer />}>
-                <Route path=":userId" element={<ProfileContainer />} />
-              </Route>
+          <Routes>
+            <Route path="*" element={<Navigate to="/profile" replace />} />
 
-              <Route path="/dialogs/*" element={<DialogsContainer />} />
-              <Route path="/users" element={<UsersContainer />} />
+            <Route path="/profile" element={<ProfileContainer />} />
+            <Route path="/profile/:userId" element={<ProfileContainer />} />
 
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </React.Suspense>
+            <Route
+              path="/dialogs/*"
+              element={
+                <React.Suspense fallback={<Preloader />}>
+                  <DialogsContainer />
+                </React.Suspense>
+              }
+            />
+
+            <Route path="/users" element={<UsersContainer />} />
+
+            <Route path="/login" element={<Login />} />
+          </Routes>
         </div>
       </div>
     );
