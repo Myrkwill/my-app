@@ -13,14 +13,15 @@ const validationSchemaLoginForm = Yup.object().shape({
     .required("Required"),
 });
 
-const Login = ({ isAuth, login }) => {
+const Login = ({ isAuth, login, captchaUrl }) => {
   if (isAuth) {
     return <Navigate to="/profile/" />;
   }
 
   const onSubmit = (values, actions) => {
-    login(values.email, values.password, values.rememberMe, actions.setStatus);
-	actions.setSubmitting(false);
+	  console.log(values)
+    login(values.email, values.password, values.rememberMe, values.captcha, actions.setStatus);
+    actions.setSubmitting(false);
   };
 
   return (
@@ -32,6 +33,7 @@ const Login = ({ isAuth, login }) => {
           email: "",
           password: "",
           rememberMe: false,
+		  captcha: ""
         }}
         validationSchema={validationSchemaLoginForm}
         onSubmit={onSubmit}
@@ -59,6 +61,15 @@ const Login = ({ isAuth, login }) => {
               <label htmlFor={"rememberMe"}> remember me </label>
             </div>
 
+			{ captchaUrl &&
+				<div>
+				<div>
+					<img src={captchaUrl} />
+				</div>
+				<Field name={"captcha"} type={"text"} />
+				</div>
+			}
+
             <button type={"submit"}>Login</button>
             <div>{status}</div>
           </Form>
@@ -70,6 +81,7 @@ const Login = ({ isAuth, login }) => {
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captchaUrl: state.auth.captchaUrl,
 });
 
 export default connect(mapStateToProps, { login })(Login);
